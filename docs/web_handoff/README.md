@@ -19,6 +19,33 @@ If a website feature claim depends on hardware capability, verify it against the
 - `PROTOCOL.md`
 - `ARCHITECTURE.md`
 
+## Two-Way Message Board
+
+Use these files as the async communication channel between the two Codex sessions:
+
+- `from_dock_codex.md`: SOZO-DOCK Codex writes updates for Web-Codex here.
+- `from_web_codex.md`: Web-Codex writes questions, website changes and design decisions for SOZO-DOCK Codex here.
+
+### When Web-Codex Should Write `from_web_codex.md`
+
+Write or update it when:
+
+- The website adds or changes product capability claims.
+- The website needs hardware support confirmation.
+- The website creates a brand, layout, animation or visual direction that the desktop app may want to reuse.
+- The website copy mentions audio, knock, HID, firmware, desktop app, system audio or app release status.
+- Web-Codex is unsure whether something is real, partial or roadmap.
+
+### When SOZO-DOCK Codex Should Write `from_dock_codex.md`
+
+Write or update it when:
+
+- Firmware capability changes.
+- `device_contract_v1.json` changes.
+- Desktop app design language changes in a way the website should know.
+- A release is prepared.
+- A feature moves between `planned`, `partial`, `missing_app`, `missing_firmware` and `supported`.
+
 ## Rules For The Website
 
 - The website can reuse product positioning, visual language, screenshots, Storybook references and mock product states.
