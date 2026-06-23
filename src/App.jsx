@@ -199,7 +199,7 @@ function PageHero({ index, eyebrow, title, description, image, children, classNa
 
 function ProductsPage() {
   return <PageShell active="products" title="产品方向">
-    <PageHero index="01" eyebrow="PRODUCT DIRECTIONS" className="page-hero--products" title={<>四个方向<br /><span>一套工程方法</span></>} description="我们从真实需求出发，把结构、电子、固件、桌面工具、飞行器与展示体验连接成可落地的产品。" image="tool-workstation.jpg" />
+    <PageHero index="01" eyebrow="PRODUCT DIRECTIONS" className="page-hero--products page-hero--immersive" title={<>四个方向<br /><span>一套工程方法</span></>} description="我们从真实需求出发，把结构、电子、固件、桌面工具、飞行器与展示体验连接成可落地的产品。" image="tool-workstation.jpg" />
     <section className="section product-manifest"><div className="section-heading" data-reveal><div><span className="eyebrow">SYSTEM MAP</span><h2>产品与能力坐标</h2></div><p>每个方向独立成页，但它们共享原型验证、现场测试与持续迭代。</p></div>{directions.map((item) => <a href={href(item.key)} className="manifest-row" key={item.num} data-reveal><span>{item.num}</span><div><small>{item.en}</small><h3>{item.title}</h3></div><p>{item.desc}</p><figure><img src={media(item.image)} alt="" /></figure><ArrowRight /></a>)}</section>
     <ProcessSection />
   </PageShell>;
