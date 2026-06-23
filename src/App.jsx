@@ -21,7 +21,8 @@ import {
   X,
 } from "@phosphor-icons/react";
 
-const media = (name) => `/media/${name}`;
+const base = import.meta.env.BASE_URL;
+const media = (name) => `${base}media/${name}`;
 
 const pages = {
   home: { file: "index.html", label: "首页" },
@@ -33,7 +34,7 @@ const pages = {
   contact: { file: "contact.html", label: "联系合作" },
 };
 
-const href = (key) => `/${pages[key].file}`;
+const href = (key) => `${base}${pages[key].file}`;
 
 function currentPage() {
   const file = window.location.pathname.split("/").pop() || "index.html";
