@@ -209,6 +209,32 @@ p { color: var(--muted); line-height: 1.8; }
 .values-band strong { font-size: 21px; }
 .values-band p { max-width: 230px; margin: 4px 0 0; color: var(--muted); font-size: 12px; line-height: 1.7; }
 
+/* Batched browser annotations: Products hero, process interaction and footer density. */
+.page-hero--products.page-hero--immersive { border: 1px solid var(--line); border-radius: 14px; }
+.page-hero--products .page-hero__image,
+.page-hero--products .page-hero__image img { border-radius: 14px; }
+.page-hero--products .page-hero__image img { object-position: 56% center; }
+
+.process-grid > div { min-width: 0; min-height: 190px; overflow: hidden; transition: flex-grow .38s cubic-bezier(.2,.75,.25,1), background-color .28s, padding .38s cubic-bezier(.2,.75,.25,1); }
+.process-grid span { font-size: 24px; }
+.process-grid small { margin-top: 15px; color: rgba(220,238,234,.72); font-size: 11px; font-weight: 600; line-height: 1.55; }
+.process-grid h3 { font-size: 23px; }
+.process-grid p { font-size: 14px; line-height: 1.65; }
+
+@media (hover: hover) and (min-width: 721px) {
+  .process-grid { display: flex; }
+  .process-grid > div { flex: 1 1 0; }
+  .process-grid:hover > div { flex-grow: .86; }
+  .process-grid > div:hover { flex-grow: 1.42; padding-left: 40px; padding-right: 40px; background: linear-gradient(145deg, rgba(115,226,179,.09), rgba(10,30,45,.58)); }
+}
+
+.footer-cta .arrow-link { width: 112px; height: 45px; padding-top: 29px; justify-content: flex-end; align-items: flex-start; gap: 8px; font-size: 16px; font-weight: 800; line-height: 16px; }
+.footer-grid { min-height: 220px; padding: 64px 0 56px; gap: 56px; }
+.footer-grid > div { gap: 12px; font-size: 14px; line-height: 1.55; }
+.footer-grid small { margin-bottom: 12px; font: 700 12px var(--font-mono); letter-spacing: .08em; }
+.footer-grid .brand img { width: 48px; height: 48px; }
+.footer-grid .brand b { font-size: 17px; }
+
 @media (max-width: 1100px) {
   :root { --container: min(100% - 40px, 980px); }
   .desktop-nav { display: none; }.site-header { grid-template-columns: 1fr auto auto; }.nav-contact { display: none; }.menu-button { display: block; }
@@ -229,10 +255,10 @@ p { color: var(--muted); line-height: 1.8; }
   .signal-hero { min-height: auto; overflow: visible; }.hero-copy { padding-top: 70px; }.hero-copy h1 { font-size: 48px; }.hero-copy p { font-size: 14px; }.hero-actions { flex-direction: column; align-items: stretch; }.field-stage { min-height: 720px; }.field-stage::before { left: 20px; right: auto; }.field-photo--workbench { inset: 50px 0 420px 36px; }.field-photo--dock { width: calc(100% - 36px); height: 210px; right: 0; top: 250px; }.field-photo--flight { width: 54%; height: 145px; top: 480px; right: 0; }.field-photo--lab { width: 46%; height: 130px; left: 36px; bottom: 70px; }.orbit { width: 400px; height: 400px; left: -130px; top: 140px; }.orbit--two { display: none; }.datum { top: 460px; }.tag-dock { left: 45px; top: 438px; }.tag-flight { right: 3%; top: 628px; }.tag-tools, .tag-lab { display: none; }
   .direction-node { grid-template-columns: 42px 1fr auto; min-height: 138px; gap: 18px; }.node-image { display: none; }.node-copy h3 { font-size: 21px; }.node-copy p { display: block; font-size: 12px; }.direction-node:hover { padding: 0 8px; }
   .project-strip { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; }.project-tile { min-width: 84vw; min-height: 330px; scroll-snap-align: start; }.project-tile--1 { grid-column: auto; }
-  .footer-cta { align-items: flex-start; flex-direction: column; }.footer-grid { grid-template-columns: 1fr 1fr; }.footer-meta { text-align: left; align-items: flex-start; }.footer-grid > .brand { grid-column: 1 / -1; }
+  .footer-cta { align-items: flex-start; flex-direction: column; }.footer-cta .arrow-link { width: auto; height: auto; padding-top: 0; }.footer-grid { min-height: 0; padding: 46px 0; grid-template-columns: 1fr 1fr; gap: 34px 24px; }.footer-meta { text-align: left; align-items: flex-start; }.footer-grid > .brand { grid-column: 1 / -1; }
   .page-hero { grid-template-columns: 1fr; }.page-hero__copy { padding: 80px 0 50px; }.page-hero__copy h1 { font-size: 49px; }.page-hero__image { height: 420px; border-left: 0; border-top: 1px solid var(--line); }.page-hero--products .page-hero__copy h1 span { margin-left: 0; }.page-hero--immersive { min-height: 640px; }.page-hero--immersive .page-hero__copy { width: 100%; min-height: 640px; padding: 72px 0 45px; }.page-hero--immersive .page-hero__copy h1 { font-size: 44px; }.page-hero--immersive .page-hero__copy h1 span { font-size: .86em; white-space: nowrap; }.page-hero--immersive .page-hero__image { height: auto; border: 0; }.page-hero--immersive::after { background: linear-gradient(180deg, rgba(5,7,7,.9) 0%, rgba(5,7,7,.5) 48%, rgba(5,7,7,.92) 100%); }
   .manifest-row { grid-template-columns: 40px 1fr auto; padding: 20px 0; }.manifest-row p, .manifest-row figure { display: none; }.manifest-row:hover { padding: 20px 8px; }
-  .process-grid { grid-template-columns: 1fr 1fr; }.process-grid > div:nth-child(2) { border-right: 0; }.process-grid > div { border-bottom: 1px solid var(--line); padding: 24px; }.process-grid h3 { margin-top: 30px; }
+  .process-grid { display: grid; grid-template-columns: 1fr 1fr; }.process-grid > div:nth-child(2) { border-right: 0; }.process-grid > div { min-height: 185px; border-bottom: 1px solid var(--line); padding: 24px; }.process-grid h3 { margin-top: 24px; }
   .dock-annotation figure { height: 450px; }.dock-note--a { left: 12px; top: 22%; }.dock-note--b { right: 10px; top: 62%; }.dock-note--c { display: none; }
   .feature-console { grid-template-columns: 1fr; gap: 30px; }.feature-display { padding: 32px; min-height: auto; }.feature-display h2 { font-size: 40px; }.feature-facts { grid-template-columns: 1fr; }.hardware-flow { gap: 7px; }.hardware-flow span { padding: 8px 5px; font-size: 8px; }.hardware-line { grid-template-columns: 1fr 1fr; }.hardware-node:nth-child(2n) { border-right: 0; }.development-band { grid-template-columns: 1fr; gap: 30px; }.development-band h2 { font-size: 40px; }.development-band figure { height: 360px; }
   .capability-cards { grid-template-columns: 1fr; }.capability-cards article { min-height: 240px; grid-template-columns: 42px 1fr; }.capability-cards article > div { grid-column: 1 / -1; }.airframe-images { grid-template-columns: 1fr; }.airframe-images figure { height: 350px; }.flight-band { height: 540px; }.flight-band h2 { font-size: 45px; }.flight-band::after { inset: 12px; }
