@@ -181,7 +181,7 @@ export function GalleryPage() {
 
         <div className="gallery-grid" aria-live="polite">
           {shown.map((item) => (
-            <article className={`gallery-card gallery-card--${item.type}`} data-reveal key={item.id}>
+            <article className={`gallery-card gallery-card--${item.type}`} key={item.id}>
               <figure>
                 {item.type === "video" ? (
                   <video src={media(item.src)} controls muted playsInline preload="metadata" />
