@@ -21,6 +21,7 @@ export default defineConfig({
         dock: resolve(import.meta.dirname, "dock.html"),
         fpv: resolve(import.meta.dirname, "fpv.html"),
         cases: resolve(import.meta.dirname, "cases.html"),
+        gallery: resolve(import.meta.dirname, "gallery.html"),
         about: resolve(import.meta.dirname, "about.html"),
         contact: resolve(import.meta.dirname, "contact.html"),
       },
