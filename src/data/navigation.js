@@ -4,6 +4,7 @@ export const pages = {
   dock: { file: "dock.html", label: "SOZO Dock" },
   fpv: { file: "fpv.html", label: "FPV 与无人机" },
   cases: { file: "cases.html", label: "服务案例" },
+  gallery: { file: "gallery.html", label: "项目图集" },
   about: { file: "about.html", label: "关于我们" },
   contact: { file: "contact.html", label: "联系合作" },
 };

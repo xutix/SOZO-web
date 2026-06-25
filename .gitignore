@@ -6,3 +6,4 @@ dist/
 qa-*.png
 AGENTS.md
 design-qa.md
+.codex-logs/

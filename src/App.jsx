@@ -7,6 +7,7 @@ const pageComponents = {
   dock: lazy(() => import("./pages/DockPage").then(({ DockPage }) => ({ default: DockPage }))),
   fpv: lazy(() => import("./pages/FpvPage").then(({ FpvPage }) => ({ default: FpvPage }))),
   cases: lazy(() => import("./pages/CasesPage").then(({ CasesPage }) => ({ default: CasesPage }))),
+  gallery: lazy(() => import("./pages/GalleryPage").then(({ GalleryPage }) => ({ default: GalleryPage }))),
   about: lazy(() => import("./pages/AboutPage").then(({ AboutPage }) => ({ default: AboutPage }))),
   contact: lazy(() => import("./pages/ContactPage").then(({ ContactPage }) => ({ default: ContactPage }))),
 };
