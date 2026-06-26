@@ -2086,6 +2086,124 @@ p { color: var(--muted); line-height: 1.8; }
   .contact-hero { grid-template-columns: 1fr; padding: 70px 0; }.contact-hero h1 { font-size: 52px; }.contact-signal { justify-self: start; width: 190px; height: 190px; margin-top: 30px; }.contact-layout { grid-template-columns: 1fr; }.contact-form { grid-template-columns: 1fr; padding: 24px; }.contact-form label:nth-of-type(4), .contact-form button { grid-column: auto; }
 }
 
+/* Mobile polish: the drawer must read as a real glass panel, and the About hero should not flash the older fallback photo. */
+@media (max-width: 1100px) {
+  .menu-button {
+    position: relative;
+    z-index: 1201;
+    width: 44px;
+    height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(197, 232, 245, .13);
+    border-radius: 999px;
+    background: rgba(9, 14, 18, .52);
+    color: var(--ice);
+    backdrop-filter: blur(14px) saturate(1.2);
+    -webkit-backdrop-filter: blur(14px) saturate(1.2);
+  }
+
+  .mobile-nav {
+    z-index: 1200;
+    padding: 24px max(20px, var(--side-pad)) 36px;
+    height: calc(100dvh - 88px);
+    min-height: calc(100vh - 88px);
+    transform: translateX(100%);
+    background:
+      radial-gradient(80% 48% at 88% 0%, rgba(126, 220, 255, .16), rgba(5, 7, 7, 0) 72%),
+      linear-gradient(180deg, rgba(9, 13, 16, .96), rgba(5, 7, 7, .92) 62%, rgba(5, 7, 7, .98));
+    background-color: rgba(5, 7, 7, .94);
+    border-left: 1px solid rgba(197, 232, 245, .08);
+    box-shadow: -22px 0 80px rgba(0, 0, 0, .44), inset 1px 0 0 rgba(255, 255, 255, .035);
+    backdrop-filter: blur(24px) saturate(1.18);
+    -webkit-backdrop-filter: blur(24px) saturate(1.18);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+
+  .mobile-nav.open {
+    transform: translateX(0) !important;
+  }
+
+  .site-header.is-scrolled .mobile-nav {
+    height: calc(100dvh - 64px);
+    min-height: calc(100vh - 64px);
+  }
+
+  .mobile-nav a {
+    min-height: 66px;
+    margin-bottom: 10px;
+    padding: 0 16px;
+    border: 1px solid rgba(197, 232, 245, .08);
+    border-radius: 18px;
+    background: rgba(255, 255, 255, .028);
+  }
+}
+
+@media (max-width: 720px) {
+  .mobile-nav {
+    height: calc(100dvh - 74px);
+    min-height: calc(100vh - 74px);
+  }
+
+  .site-header.is-scrolled .mobile-nav {
+    height: calc(100dvh - 62px);
+    min-height: calc(100vh - 62px);
+  }
+
+  .page-hero--about-video {
+    width: 100%;
+    min-height: 620px;
+    height: auto;
+    overflow: hidden;
+  }
+
+  .page-hero--about-video .page-hero__copy {
+    width: 100%;
+    min-height: 620px;
+    padding: 112px 16px 76px;
+    justify-content: flex-end;
+  }
+
+  .page-hero--about-video .page-hero__copy h1 {
+    font-size: clamp(44px, 12.6vw, 58px);
+  }
+
+  .page-hero--about-video .page-hero__image {
+    position: absolute;
+    inset: -5vh -34vw -9vh -28vw;
+    height: auto;
+    border: 0;
+  }
+
+  .page-hero--about-video .page-hero__video {
+    opacity: .9;
+    object-position: 64% center;
+    filter: saturate(.82) brightness(.64) contrast(1.08) blur(.2px);
+    transform: translate3d(5%, -1%, 0) scale(1.08);
+  }
+
+  .page-hero--about-video .page-hero__image img {
+    opacity: .08;
+    object-position: 64% center;
+    filter: saturate(.5) brightness(.38) contrast(1.08);
+  }
+
+  .page-hero--about-video .page-hero__image--video::before {
+    background:
+      radial-gradient(88% 48% at 70% 18%, rgba(126, 220, 255, .1), rgba(5, 7, 7, 0) 70%),
+      linear-gradient(180deg, rgba(5, 7, 7, .34), rgba(5, 7, 7, .18) 42%, rgba(5, 7, 7, .86) 100%),
+      linear-gradient(90deg, rgba(5, 7, 7, .9) 0%, rgba(5, 7, 7, .46) 52%, rgba(5, 7, 7, .28) 100%);
+  }
+
+  .page-hero--about-video .page-hero__image--video::after {
+    background:
+      linear-gradient(180deg, #050707 0%, rgba(5, 7, 7, .1) 18%, rgba(5, 7, 7, .05) 58%, #050707 100%),
+      linear-gradient(90deg, #050707 0%, rgba(5, 7, 7, .22) 26%, rgba(5, 7, 7, 0) 56%, rgba(5, 7, 7, .42) 100%);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; transition-duration: .01ms !important; }
   [data-reveal] { opacity: 1; transform: none; }
