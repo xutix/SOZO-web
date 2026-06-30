@@ -17,9 +17,21 @@ export function PageHero({ index, eyebrow, title, description, image, video, vid
           muted
           loop
           playsInline
+          webkit-playsinline="true"
+          x5-playsinline="true"
+          x5-video-player-type="h5"
+          x5-video-player-fullscreen="false"
+          x-webkit-airplay="deny"
+          disablePictureInPicture
+          controlsList="nodownload noplaybackrate nofullscreen"
+          aria-hidden="true"
+          tabIndex={-1}
           preload="metadata"
           onLoadedMetadata={(event) => { event.currentTarget.playbackRate = videoPlaybackRate; }}
-          onCanPlay={(event) => { event.currentTarget.playbackRate = videoPlaybackRate; }}
+          onCanPlay={(event) => {
+            event.currentTarget.playbackRate = videoPlaybackRate;
+            event.currentTarget.play().catch(() => {});
+          }}
           onError={() => setVideoFailed(true)}
         /> : null}
         <img src={media(image)} alt="" />

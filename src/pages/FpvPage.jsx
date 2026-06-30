@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import { flightCapabilities } from "../data/fpv";
 import { href, media } from "../utils/site";
 import { ArrowLink } from "../components/ui/ArrowLink";
@@ -28,7 +28,7 @@ const airframeSlides = [
     image: "gallery/asset-17.jpg",
     tag: "04 / DETAIL",
     title: "连接细节",
-    text: "把局部工程细节放进同一套滚动叙事里。",
+    text: "把局部工程细节放进同一套拖动叙事里。",
   },
 ];
 
@@ -36,43 +36,86 @@ function clamp(value, min, max) {
   return Math.min(Math.max(value, min), max);
 }
 
-function AirframeScrollShowcase() {
-  const sectionRef = useRef(null);
-  const [progress, setProgress] = useState(0);
+function AirframeDragShowcase() {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [dragDelta, setDragDelta] = useState(0);
+  const dragStart = useRef(null);
+  const suppressClick = useRef(false);
+  const wheelLock = useRef(0);
 
-  useEffect(() => {
-    const section = sectionRef.current;
-    if (!section) return undefined;
+  const progress = useMemo(() => {
+    const dragProgress = dragDelta / 280;
+    return clamp(activeIndex - dragProgress, 0, airframeSlides.length - 1);
+  }, [activeIndex, dragDelta]);
 
-    let frame = 0;
-    const update = () => {
-      frame = 0;
-      const rect = section.getBoundingClientRect();
-      const travel = Math.max(1, rect.height - window.innerHeight);
-      const raw = (window.innerHeight * 0.34 - rect.top) / travel;
-      setProgress(clamp(raw, 0, 1));
-    };
-    const requestUpdate = () => {
-      if (!frame) frame = window.requestAnimationFrame(update);
-    };
+  const goTo = (index) => {
+    setActiveIndex(clamp(index, 0, airframeSlides.length - 1));
+    setDragDelta(0);
+    dragStart.current = null;
+  };
 
-    update();
-    window.addEventListener("scroll", requestUpdate, { passive: true });
-    window.addEventListener("resize", requestUpdate);
+  const handlePointerDown = (event) => {
+    dragStart.current = { x: event.clientX, pointerId: event.pointerId };
+    suppressClick.current = false;
+    setDragDelta(0);
+    event.currentTarget.setPointerCapture?.(event.pointerId);
+  };
 
-    return () => {
-      if (frame) window.cancelAnimationFrame(frame);
-      window.removeEventListener("scroll", requestUpdate);
-      window.removeEventListener("resize", requestUpdate);
-    };
-  }, []);
+  const handlePointerMove = (event) => {
+    if (!dragStart.current) return;
+    const nextDelta = clamp(event.clientX - dragStart.current.x, -320, 320);
+    if (Math.abs(nextDelta) > 10) suppressClick.current = true;
+    setDragDelta(nextDelta);
+  };
 
-  const activeIndex = useMemo(() => {
-    return clamp(Math.round(progress * (airframeSlides.length - 1)), 0, airframeSlides.length - 1);
-  }, [progress]);
+  const finishDrag = (event) => {
+    if (!dragStart.current) return;
+    event.currentTarget.releasePointerCapture?.(dragStart.current.pointerId);
+    const threshold = 76;
+    if (dragDelta < -threshold) goTo(activeIndex + 1);
+    else if (dragDelta > threshold) goTo(activeIndex - 1);
+    else {
+      const hitSlide = document.elementFromPoint(event.clientX, event.clientY)?.closest?.(".airframe-slide");
+      const hitIndex = Number(hitSlide?.dataset?.slideIndex);
+      if (Number.isInteger(hitIndex)) goTo(hitIndex);
+      else setDragDelta(0);
+    }
+    dragStart.current = null;
+  };
+
+  const handleSlideClick = (index) => {
+    if (suppressClick.current) {
+      suppressClick.current = false;
+      return;
+    }
+    goTo(index);
+  };
+
+  const handleSlideKeyDown = (event, index) => {
+    if (event.key !== "Enter" && event.key !== " ") return;
+    event.preventDefault();
+    goTo(index);
+  };
+
+  const handleWheel = (event) => {
+    const isHorizontalIntent = event.shiftKey || Math.abs(event.deltaX) > Math.abs(event.deltaY);
+    if (!isHorizontalIntent) return;
+    event.preventDefault();
+
+    const now = window.performance.now();
+    if (now - wheelLock.current < 420) return;
+
+    const delta = Math.abs(event.deltaX) > Math.abs(event.deltaY) ? event.deltaX : event.deltaY;
+    if (Math.abs(delta) < 12) return;
+
+    wheelLock.current = now;
+    goTo(activeIndex + (delta > 0 ? 1 : -1));
+  };
+
+  const nearestIndex = clamp(Math.round(progress), 0, airframeSlides.length - 1);
 
   return (
-    <section className="section airframe-section airframe-section--scroll" ref={sectionRef}>
+    <section className="section airframe-section airframe-section--drag">
       <div className="airframe-scroll__sticky">
         <div className="airframe-copy" data-reveal>
           <span className="eyebrow">AUTHENTIC STRUCTURE</span>
@@ -81,9 +124,17 @@ function AirframeScrollShowcase() {
           <ArrowLink to={href("contact")}>讨论无人机方案</ArrowLink>
         </div>
 
-        <div className="airframe-carousel" aria-label="真实 FPV 素材滚动展示">
+        <div
+          className="airframe-carousel airframe-carousel--drag"
+          aria-label="真实 FPV 素材拖动展示"
+          onPointerDown={handlePointerDown}
+          onPointerMove={handlePointerMove}
+          onPointerUp={finishDrag}
+          onPointerCancel={finishDrag}
+          onWheel={handleWheel}
+        >
           {airframeSlides.map((slide, index) => {
-            const depth = index - progress * (airframeSlides.length - 1);
+            const depth = index - progress;
             const distance = Math.abs(depth);
             const x = depth * 250;
             const y = distance * 26 + depth * 8;
@@ -95,6 +146,12 @@ function AirframeScrollShowcase() {
               <figure
                 className="airframe-slide"
                 key={slide.image}
+                role="button"
+                tabIndex={0}
+                data-slide-index={index}
+                aria-label={`查看${slide.title}`}
+                onClick={() => handleSlideClick(index)}
+                onKeyDown={(event) => handleSlideKeyDown(event, index)}
                 style={{
                   "--slide-x": `${x}px`,
                   "--slide-y": `${y}px`,
@@ -104,7 +161,7 @@ function AirframeScrollShowcase() {
                   zIndex: 20 - Math.round(distance * 3),
                 }}
               >
-                <img src={media(slide.image)} alt={slide.title} loading="lazy" decoding="async" />
+                <img src={media(slide.image)} alt={slide.title} loading="lazy" decoding="async" draggable="false" />
                 <figcaption>
                   <span>{slide.tag}</span>
                   <strong>{slide.title}</strong>
@@ -114,10 +171,26 @@ function AirframeScrollShowcase() {
             );
           })}
           <div className="airframe-carousel__hud" aria-hidden="true">
-            <span>{airframeSlides[activeIndex].tag}</span>
-            <strong>{airframeSlides[activeIndex].title}</strong>
-            <i><b style={{ width: `${progress * 100}%` }} /></i>
+            <span>{airframeSlides[nearestIndex].tag}</span>
+            <strong>{airframeSlides[nearestIndex].title}</strong>
+            <i><b style={{ width: `${(nearestIndex / (airframeSlides.length - 1)) * 100}%` }} /></i>
           </div>
+        </div>
+
+        <div className="airframe-controls" aria-label="切换 FPV 素材">
+          <button type="button" onClick={() => goTo(activeIndex - 1)} disabled={activeIndex === 0}>上一张</button>
+          <div>
+            {airframeSlides.map((slide, index) => (
+              <button
+                type="button"
+                key={slide.tag}
+                className={index === activeIndex ? "active" : ""}
+                aria-label={`切换到${slide.title}`}
+                onClick={() => goTo(index)}
+              />
+            ))}
+          </div>
+          <button type="button" onClick={() => goTo(activeIndex + 1)} disabled={activeIndex === airframeSlides.length - 1}>下一张</button>
         </div>
       </div>
     </section>
@@ -128,7 +201,7 @@ export function FpvPage() {
   return <PageShell active="fpv" title="FPV 与无人机方案">
     <PageHero index="03" eyebrow="FLIGHT SYSTEM" className="page-hero--fpv page-hero--immersive" title={<>从结构调试<br /><span>到飞行展示</span></>} description="围绕 FPV 穿越机、无人机整机、活动飞行和定制应用，提供结构设计、装配调试、展示执行与技术支持。" image="fpv-flight-1.jpg"><div className="flight-meta"><span>FIELD TESTED</span><span>REAL AIRFRAME</span><span>NO GENERIC PARTS</span></div></PageHero>
     <section className="section capability-grid"><div className="section-heading" data-reveal><div><span className="eyebrow">FLIGHT CAPABILITY</span><h2>把飞行体验建立在工程验证上</h2></div><p>从装配前的结构判断，到飞行后的数据复盘，能力被拆成可执行、可验证的工程环节。</p></div><div className="capability-cards">{flightCapabilities.map(([Icon, title, text, details], i) => <article data-reveal key={title}><span>0{i + 1}</span><Icon size={40} weight="thin" /><div><small>0{i + 1} / FLIGHT MODULE</small><h3>{title}</h3><p>{text}</p><ul>{details.map((detail) => <li key={detail}>{detail}</li>)}</ul></div></article>)}</div></section>
-    <AirframeScrollShowcase />
+    <AirframeDragShowcase />
     <section className="flight-band"><img src={media("fpv-studio.jpg")} alt="FPV 飞行器现场检查" /><div data-reveal><span className="eyebrow">FIELD EXECUTION · LINK VERIFIED</span><h2>速度感来自真实飞行<br /><span>不是虚构结构</span></h2><p>飞行器、图传链路与现场安全共同组成一次可靠的展示执行。</p><div className="flight-band__tags"><span>REAL AIRFRAME</span><span>FIELD TESTED</span><span>SAFETY CHECKED</span></div></div></section>
   </PageShell>;
 }
