@@ -22,6 +22,7 @@ export default defineConfig({
         fpv: resolve(import.meta.dirname, "fpv.html"),
         cases: resolve(import.meta.dirname, "cases.html"),
         gallery: resolve(import.meta.dirname, "gallery.html"),
+        support: resolve(import.meta.dirname, "support.html"),
         about: resolve(import.meta.dirname, "about.html"),
         contact: resolve(import.meta.dirname, "contact.html"),
       },

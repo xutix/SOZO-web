@@ -11,9 +11,23 @@ export function Footer() {
       </div>
       <div className="footer-grid">
         <Brand compact />
-        <div><small>业务方向</small><a href={href("dock")}>SOZO Dock</a><a href={href("fpv")}>FPV 与无人机</a><a href={href("cases")}>服务与案例</a></div>
-        <div><small>联系</small><a href="mailto:xutic@icloud.com">xutic@icloud.com</a><span>西安 · 中国</span><span>sozotech.cn</span></div>
-        <div className="footer-meta"><small>SOZO SIGNAL FIELD</small><span>© 2026 SOZO Tech</span><span>陕ICP备2026016108号-1</span></div>
+        <nav className="footer-links" aria-label="页脚导航">
+          <a href={href("dock")}>SOZO Dock</a>
+          <a href={href("fpv")}>FPV 与无人机</a>
+          <a href={href("products")}>产品总览</a>
+          <a href={href("cases")}>合作服务</a>
+          <a href={href("gallery")}>项目现场</a>
+          <a href={href("support")}>支持</a>
+        </nav>
+        <div className="footer-contact-line">
+          <a href="mailto:xutic@icloud.com">xutic@icloud.com</a>
+          <span>西安 · 中国</span>
+          <span>sozotech.cn</span>
+        </div>
+      </div>
+      <div className="footer-legal">
+        <span>© 2026 SOZO Tech</span>
+        <a href="https://beian.miit.gov.cn/" target="_blank" rel="noreferrer">陕ICP备2026016108号-1</a>
       </div>
     </footer>
   );

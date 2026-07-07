@@ -195,7 +195,8 @@ export function DockPage() {
     <PageHero
       index="02"
       eyebrow="DESKTOP CONTROL"
-      className="page-hero--dock page-hero--immersive"
+      variant="image"
+      page="dock"
       title={<>SOZO Dock<br /><span>桌面不只是桌面</span></>}
       description="面向工程师与创客的桌面控制中心。它不是从效果图开始的概念，而是从真实工程桌面长出来的第一块控制硬件。"
       image="dock-ambient.jpg"

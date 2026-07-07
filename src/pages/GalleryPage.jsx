@@ -113,7 +113,8 @@ export function GalleryPage() {
       <PageHero
         index="08"
         eyebrow="MEDIA LIBRARY"
-        className="page-hero--gallery page-hero--immersive"
+        variant="image"
+        page="gallery"
         title={<>真实项目<br /><span>影像记录</span></>}
         description="这里收录索卓科技在产品研发、FPV 飞行、工程工具、创客教育和活动展示中的真实照片与视频。所有画面都来自实际项目和工作现场。"
         image={heroImage}

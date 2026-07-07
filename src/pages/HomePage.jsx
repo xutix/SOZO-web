@@ -3,28 +3,26 @@ import { featuredProjects, productAnchorPoints, directions } from "../data/home"
 import { href, media } from "../utils/site";
 import { PageShell } from "../components/layout/PageShell";
 import { ArrowLink } from "../components/ui/ArrowLink";
-import { SignalTag } from "../components/ui/SignalTag";
 
 function HomeHero() {
   return (
-    <section className="signal-hero">
+    <section className="signal-hero signal-hero--v2">
       <div className="hero-copy" data-reveal>
-        <span className="eyebrow">ENGINEERING SIGNAL FIELD · ONLINE</span>
-        <h1>从桌面到飞行<br />把工程想法<br />做成<span>真实产品</span></h1>
-        <p>索卓科技把真实工程现场里的结构、电子、飞行和互动体验，整理成可验证、可展示、可购买的产品。SOZO Dock 是这套能力的第一个清晰入口。</p>
+        <span className="eyebrow">ENGINEERING PRODUCT FIELD</span>
+        <h1>把工程能力<br /><span>做成真实产品</span></h1>
+        <p>索卓科技围绕 SOZO Dock、FPV 与桌面工程工具，把真实研发现场里的结构、电子和体验，整理成可验证、可展示、可交付的产品。</p>
         <div className="hero-actions"><a className="button button--solid" href={href("dock")}>查看 SOZO Dock <ArrowRight /></a><a className="button" href={href("products")}>了解产品方向</a></div>
       </div>
-      <div className="field-stage" aria-label="SOZO 工程信号场">
-        <figure className="field-photo field-photo--workbench"><img src={media("workbench.jpg")} alt="索卓科技工程工作台" /></figure>
-        <figure className="field-photo field-photo--dock"><img src={media("dock-ambient.jpg")} alt="SOZO Dock 桌面控制中心" /></figure>
-        <figure className="field-photo field-photo--flight"><img src={media("fpv-flight-1.jpg")} alt="御风 5 FPV 飞行器飞行中" /></figure>
-        <figure className="field-photo field-photo--lab"><img src={media("maker-class.jpg")} alt="创客教育课程现场" /></figure>
-        <div className="orbit orbit--one" /><div className="orbit orbit--two" />
-        <SignalTag className="tag-dock" eyebrow="DESKTOP CONTROL" title="桌面控制" />
-        <SignalTag className="tag-flight" eyebrow="FLIGHT SYSTEM" title="飞行系统" />
-        <SignalTag className="tag-tools" eyebrow="ENGINEERING TOOLS" title="工程工具" />
-        <SignalTag className="tag-lab" eyebrow="MAKER LAB" title="创客实验" />
-        <div className="datum"><span>N 34.2672°</span><b /></div>
+      <div className="home-stage" aria-label="SOZO 工程产品舞台" data-reveal>
+        <figure className="home-stage__ambient"><img src={media("tool-workstation.jpg")} alt="索卓科技工程桌面" /></figure>
+        <figure className="home-stage__product"><img src={media("dock-ambient.jpg")} alt="SOZO Dock 桌面控制中心" /></figure>
+        <figure className="home-stage__signal"><img src={media("fpv-flight-1.jpg")} alt="FPV 飞行器真实照片" /></figure>
+        <div className="home-stage__hud">
+          <small>01 / FIRST PRODUCT</small>
+          <strong>SOZO Dock</strong>
+          <span>Desktop control center</span>
+        </div>
+        <div className="home-stage__rail" />
       </div>
     </section>
   );

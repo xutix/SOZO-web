@@ -8,6 +8,7 @@ const pageComponents = {
   fpv: lazy(() => import("./pages/FpvPage").then(({ FpvPage }) => ({ default: FpvPage }))),
   cases: lazy(() => import("./pages/CasesPage").then(({ CasesPage }) => ({ default: CasesPage }))),
   gallery: lazy(() => import("./pages/GalleryPage").then(({ GalleryPage }) => ({ default: GalleryPage }))),
+  support: lazy(() => import("./pages/SupportPage").then(({ SupportPage }) => ({ default: SupportPage }))),
   about: lazy(() => import("./pages/AboutPage").then(({ AboutPage }) => ({ default: AboutPage }))),
   contact: lazy(() => import("./pages/ContactPage").then(({ ContactPage }) => ({ default: ContactPage }))),
 };
