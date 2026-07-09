@@ -20,7 +20,7 @@ export const galleryStats = {
       "reason": "品牌图标不进入摄影图集"
     },
     {
-      "file": "assets/videos/standing-desk-hero-source.mp4",
+      "file": "assets/videos/source/standing-desk-hero-source.mp4",
       "reason": "视频 141.1MB，暂不进网页图集，建议后续转码压缩"
     }
   ]
@@ -658,7 +658,7 @@ export const galleryItems = [
     "category": "站内视频",
     "use": "首页或产品页动效预览",
     "src": "gallery/video-03.mp4",
-    "source": "assets/videos/standing-desk-hero-preview.mp4",
+    "source": "assets/videos/web/standing-desk-hero-preview.mp4",
     "originalSize": "8.3MB",
     "webSize": "8.3MB",
     "note": "视频仅 metadata 预加载，避免自动占用带宽"
