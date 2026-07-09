@@ -1,85 +1,105 @@
 import { ArrowRight } from "@phosphor-icons/react";
-import { featuredProjects, productAnchorPoints, directions } from "../data/home";
 import { href, media } from "../utils/site";
 import { PageShell } from "../components/layout/PageShell";
-import { ArrowLink } from "../components/ui/ArrowLink";
 
-function HomeHero() {
+const homePanels = [
+  {
+    eyebrow: "SOZO TECH",
+    title: ["把工程能力", "做成真实产品"],
+    description: "索卓科技围绕 SOZO Dock、FPV 与桌面工程工具，把真实研发现场里的结构、电子和体验整理成可验证、可展示、可交付的产品。",
+    image: "tool-workstation.jpg",
+    primary: { label: "查看 SOZO Dock", to: "dock" },
+    secondary: { label: "了解产品方向", to: "products" },
+    align: "left-bottom",
+  },
+  {
+    eyebrow: "FIRST PRODUCT",
+    title: "SOZO Dock",
+    description: "从真实工作台出发，把灯效反馈、敲击输入、桌面控制和电脑通信收进一块清晰的硬件入口。",
+    image: "dock-ambient.jpg",
+    primary: { label: "进入产品页", to: "dock" },
+    align: "left-bottom",
+  },
+  {
+    eyebrow: "FLIGHT SYSTEM",
+    title: "FPV 与无人机",
+    description: "整机装配、图传链路、飞控调试与现场展示执行，构成索卓面向真实飞行场景的工程能力。",
+    image: "fpv-flight-1.jpg",
+    primary: { label: "查看飞行系统", to: "fpv" },
+    align: "right-bottom",
+  },
+  {
+    eyebrow: "ENGINEERING TOOLS",
+    title: "从工作台长出来的工具",
+    description: "模块化烙铁、桌面供电、升降桌和控制界面，都来自日常研发里反复出现的效率问题。",
+    image: "soldering-product.jpg",
+    primary: { label: "查看案例记录", to: "cases" },
+    align: "left-bottom",
+  },
+  {
+    eyebrow: "MAKER EDUCATION",
+    title: "把技术变成可参与体验",
+    description: "展会、课程和校企活动让工程能力被看见，也让产品判断回到真实用户和真实场景。",
+    video: "robot-dog-school.mp4",
+    poster: "robot-dog.jpg",
+    primary: { label: "浏览项目图库", to: "gallery" },
+    secondary: { label: "联系合作", to: "contact" },
+    align: "left-bottom",
+  },
+];
+
+function PanelActions({ primary, secondary }) {
   return (
-    <section className="signal-hero signal-hero--v2">
-      <div className="hero-copy" data-reveal>
-        <span className="eyebrow">ENGINEERING PRODUCT FIELD</span>
-        <h1>把工程能力<br /><span>做成真实产品</span></h1>
-        <p>索卓科技围绕 SOZO Dock、FPV 与桌面工程工具，把真实研发现场里的结构、电子和体验，整理成可验证、可展示、可交付的产品。</p>
-        <div className="hero-actions"><a className="button button--solid" href={href("dock")}>查看 SOZO Dock <ArrowRight /></a><a className="button" href={href("products")}>了解产品方向</a></div>
-      </div>
-      <div className="home-stage" aria-label="SOZO 工程产品舞台" data-reveal>
-        <figure className="home-stage__ambient"><img src={media("tool-workstation.jpg")} alt="索卓科技工程桌面" /></figure>
-        <figure className="home-stage__product"><img src={media("dock-ambient.jpg")} alt="SOZO Dock 桌面控制中心" /></figure>
-        <figure className="home-stage__signal"><img src={media("fpv-flight-1.jpg")} alt="FPV 飞行器真实照片" /></figure>
-        <div className="home-stage__hud">
-          <small>01 / FIRST PRODUCT</small>
-          <strong>SOZO Dock</strong>
-          <span>Desktop control center</span>
-        </div>
-        <div className="home-stage__rail" />
-      </div>
-    </section>
+    <div className="cinematic-panel__actions">
+      {primary && (
+        <a className="button button--solid" href={href(primary.to)}>
+          {primary.label}
+          <ArrowRight />
+        </a>
+      )}
+      {secondary && (
+        <a className="button" href={href(secondary.to)}>
+          {secondary.label}
+        </a>
+      )}
+    </div>
   );
 }
 
-function ProductAnchor() {
-  return (
-    <section className="section product-anchor">
-      <div className="product-anchor__copy" data-reveal>
-        <span className="eyebrow">FIRST PRODUCT · SOZO DOCK</span>
-        <h2>第一块控制硬件<br /><span>从真实桌面开始</span></h2>
-        <p>SOZO Dock 不是一个带灯的桌面架，而是桌面系统的第一块控制硬件。它把工程师每天面对的桌面，变成有状态、有反馈、可控制的工作入口。</p>
-        <div className="product-anchor__actions">
-          <ArrowLink to={href("dock")}>进入产品页</ArrowLink>
-          <a href={href("contact")}>产品合作</a>
-        </div>
-      </div>
-      <figure className="product-anchor__image" data-reveal>
-        <img src={media("dock-ambient.jpg")} alt="SOZO Dock 桌面控制中心" />
-        <figcaption>SOZO Dock comes from a real engineering workbench.</figcaption>
-      </figure>
-      <div className="product-anchor__points" data-reveal>
-        {productAnchorPoints.map(([title, desc], index) => <div key={title}><span>0{index + 1}</span><strong>{title}</strong><p>{desc}</p></div>)}
-      </div>
-    </section>
-  );
-}
+function HomePanel({ panel, index }) {
+  const mediaClass = panel.video ? "cinematic-panel__media cinematic-panel__media--video" : "cinematic-panel__media";
 
-function DirectionRail() {
   return (
-    <section className="section direction-section">
-      <div className="section-heading" data-reveal><div><span className="eyebrow">DIRECTION NODES · 01—04</span><h2>从一个产品展开一套工程能力</h2></div><p>SOZO Dock 是当前主线，FPV、工程工具和创客教育构成它背后的真实经验与应用场景。</p></div>
-      <div className="direction-rail">
-        {directions.map((item) => (
-          <a className="direction-node" href={href(item.key)} key={item.num} data-reveal>
-            <span className="node-num">{item.num}</span>
-            <div className="node-image"><img src={media(item.image)} alt="" /></div>
-            <div className="node-copy"><small>{item.en}</small><h3>{item.title}</h3><p>{item.desc}</p></div>
-            <ArrowRight className="node-arrow" />
-          </a>
-        ))}
+    <section className={`cinematic-panel cinematic-panel--${panel.align}`} data-reveal>
+      <div className={mediaClass} aria-hidden="true">
+        {panel.image && <img src={media(panel.image)} alt="" />}
+        {panel.video && (
+          <>
+            <img className="cinematic-panel__poster" src={media(panel.poster)} alt="" />
+            <video src={media(panel.video)} poster={media(panel.poster)} autoPlay muted loop playsInline preload="metadata" />
+          </>
+        )}
       </div>
-    </section>
-  );
-}
-
-function ProjectStrip() {
-  return (
-    <section className="section projects-section">
-      <div className="section-heading" data-reveal><div><span className="eyebrow">SELECTED WORK · 03</span><h2>真实项目是产品信任的一部分</h2></div><ArrowLink to={href("cases")}>查看全部案例</ArrowLink></div>
-      <div className="project-strip">
-        {featuredProjects.map((item, index) => <a href={href(item.to)} className={`project-tile project-tile--${index + 1}`} key={item.title} data-reveal><img src={media(item.image)} alt="" /><span>{item.tag}</span><h3>{item.title}</h3><ArrowRight /></a>)}
+      <div className="cinematic-panel__shade" />
+      <div className="cinematic-panel__copy">
+        <span className="eyebrow">{panel.eyebrow} / 0{index + 1}</span>
+        <h1>{Array.isArray(panel.title) ? panel.title.map((line) => <span key={line}>{line}</span>) : panel.title}</h1>
+        <p>{panel.description}</p>
+        <PanelActions primary={panel.primary} secondary={panel.secondary} />
       </div>
+      <div className="cinematic-panel__index">0{index + 1} / 0{homePanels.length}</div>
     </section>
   );
 }
 
 export function HomePage() {
-  return <PageShell active="home" title="工程造物、FPV 无人机与创客教育"><HomeHero /><ProductAnchor /><DirectionRail /><ProjectStrip /></PageShell>;
+  return (
+    <PageShell active="home" title="工程造物、FPV 无人机与创客教育">
+      <div className="home-cinematic" aria-label="索卓科技全屏产品叙事">
+        {homePanels.map((panel, index) => (
+          <HomePanel panel={panel} index={index} key={panel.eyebrow} />
+        ))}
+      </div>
+    </PageShell>
+  );
 }
