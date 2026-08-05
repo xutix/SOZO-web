@@ -17,7 +17,7 @@ export function CasesPage() {
       title={<>从原型研发<br /><span>走进展会现场</span></>}
       description="面向企业、学校、科技馆与活动方，提供硬件原型、FPV 技术、互动展示与创客课程服务。"
       image="robot-dog.jpg"
-      video="robot-dog-school.mp4"
+      video="cases-dog-school-20260709-source.mp4"
       videoPlaybackRate={0.9}
     />
     <section className="section service-list"><div className="section-heading" data-reveal><div><span className="eyebrow">SERVICE MODULES · 04</span><h2>服务能力</h2></div></div>{serviceModules.map(([n, t, d]) => <div className="service-row" data-reveal key={n}><span>{n}</span><h3>{t}</h3><p>{d}</p></div>)}</section>
